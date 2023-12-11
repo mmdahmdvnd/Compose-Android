@@ -1,4 +1,4 @@
-package mmd.ahmad.pishcoapp
+package mmd.ahmad.pishcoapp.model
 
 data class MyResponseModel(
     val status: Boolean,

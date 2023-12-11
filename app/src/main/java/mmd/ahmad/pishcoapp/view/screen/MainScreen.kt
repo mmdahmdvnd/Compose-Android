@@ -1,4 +1,4 @@
-package mmd.ahmad.pishcoapp
+package mmd.ahmad.pishcoapp.view.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -18,7 +18,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,11 +29,11 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.rememberCameraPositionState
-import dev.shreyaspatil.permissionFlow.PermissionState
-import dev.shreyaspatil.permissionflow.compose.rememberPermissionState
+import mmd.ahmad.pishcoapp.R
+import mmd.ahmad.pishcoapp.viewModel.MainViewModel
 
 @Composable
-fun MainScreen(navController: NavController) {
+fun MainScreen(navController: NavController, viewModel: MainViewModel) {
     val scrollState = rememberScrollState()
     Surface(
         modifier = Modifier.fillMaxSize(),

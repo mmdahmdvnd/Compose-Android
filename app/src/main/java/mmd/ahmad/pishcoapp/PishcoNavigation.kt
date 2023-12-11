@@ -1,30 +1,26 @@
 package mmd.ahmad.pishcoapp
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import mmd.ahmad.pishcoapp.view.screen.CollectionRequestPage
+import mmd.ahmad.pishcoapp.view.screen.MainScreen
+import mmd.ahmad.pishcoapp.view.screen.NewRequestPage
+import mmd.ahmad.pishcoapp.viewModel.MainViewModel
 
 @Composable
-fun PishcoNavigation(navController: NavHostController) {
-    val navController = rememberNavController()
-    val requests = remember { mutableStateListOf("درخواست 1", "درخواست 2", "درخواست 3") }
-    // رویداد برگشت از صفحه جدید به صفحه اصلی
-    val onBack: () -> Unit = {
-        navController.popBackStack()
-    }
-    NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
+fun PishcoNavigation(navController: NavController, viewModel: MainViewModel) {
+    NavHost(navController = navController as NavHostController, startDestination = Screen.MainScreen.route) {
         composable(route = Screen.MainScreen.route) {
-            MainScreen(navController = navController)
+            MainScreen(navController = navController, viewModel = viewModel)
         }
         composable(route = Screen.CollectionRequestPage.route) {
-            CollectionRequestPage(navController = navController, requests = requests)
+            CollectionRequestPage(navController = navController, viewModel = viewModel)
         }
         composable(route = Screen.NewRequestPage.route) {
-            NewRequestPage(navController = navController,/* onBack = onBack,*/ requests = requests)
+            NewRequestPage(navController = navController, viewModel = viewModel)
         }
     }
 }

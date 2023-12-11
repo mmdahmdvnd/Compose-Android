@@ -1,4 +1,4 @@
-package mmd.ahmad.pishcoapp
+package mmd.ahmad.pishcoapp.view.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,29 +10,25 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import mmd.ahmad.pishcoapp.Screen
+import mmd.ahmad.pishcoapp.apiService.ApiService
+import mmd.ahmad.pishcoapp.viewModel.ApiServiceViewModel
+import mmd.ahmad.pishcoapp.viewModel.MainViewModel
 
 @Composable
-fun NewRequestPage(
-    navController: NavController,
-//   onBack: () -> Unit,
-   requests: MutableList<String>
-) {
+fun NewRequestPage(navController: NavController, viewModel: MainViewModel) {
     var name by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
     var address by remember { mutableStateOf("") }
+    val apiServiceViewModel: ApiServiceViewModel = viewModel()
 
     Column(
         modifier = Modifier
@@ -70,20 +66,22 @@ fun NewRequestPage(
 
         Button(
             onClick = {
-                runBlocking {
-                    try {
-                        submitRequest()
-                        requests.add("درخواست جدید")
-                        navController.navigate(Screen.CollectionRequestPage.route) {
-                            // تنظیم popUpTo برای بازگشت به CollectionRequestPage
-                            launchSingleTop = true
-                            restoreState = true
-                            popUpTo(Screen.CollectionRequestPage.route) {
-                                saveState = true
-                            }
-                        }
-                    } catch (e: Exception) {
-                        // مدیریت خطاها
+                apiServiceViewModel.submitRequest(
+                    apiService = ApiService.apiService,
+                    onSuccess = { response ->
+                        // پردازش نتیجه
+                    },
+                    onError = { errorMessage ->
+                        // مدیریت خطا
+                    }
+                )
+                viewModel.addRequest("درخواست جدید")
+                navController.navigate(Screen.CollectionRequestPage.route) {
+                    // تنظیم popUpTo برای بازگشت به CollectionRequestPage
+                    launchSingleTop = true
+                    restoreState = true
+                    popUpTo(Screen.CollectionRequestPage.route) {
+                        saveState = true
                     }
                 }
             },
@@ -96,23 +94,6 @@ fun NewRequestPage(
     }
 }
 
-suspend fun submitRequest(){
-    val retrofit = Retrofit.Builder()
-        .baseUrl("https://android-material.ir/test/") // آدرس پایه سرویس وب
-        .addConverterFactory(GsonConverterFactory.create()) // مبدل داده به و از JSON
-        .build()
 
-    val apiService = retrofit.create(ApiService::class.java)
 
-    try {
-        val response : MyResponseModel = apiService.getData()
-        if(response.status){
-            println("response ok")
-        }else{
-            println("ارتباط با سرور برقرار نشد")
-        }
 
-    } catch (e: Exception) {
-        // خطای ارتباط با سرور یا خطا در پارس کردن پاسخ
-    }
-}
