@@ -1,0 +1,46 @@
+name: Android CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Setup Java (JDK 17 برای Gradle جدید)
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      # Step 3: Cache Gradle
+      - name: Cache Gradle
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: gradle-${{ runner.os }}
+
+      # Step 4: Build the project
+      - name: Build project
+        run: ./gradlew build --stacktrace
+
+      # Step 5: Run tests
+      - name: Run tests
+        run: ./gradlew test --stacktrace
+
+      # Optional Step: Deploy (به محیط واقعی یا تستی)
+      - name: Deploy APK
+        if: github.ref == 'refs/heads/main'
+        run: echo "Deploy logic goes here (e.g., upload APK to server or Firebase)"
