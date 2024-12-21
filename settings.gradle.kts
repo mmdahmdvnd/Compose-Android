@@ -17,4 +17,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "pishcoApp"
 include(":app")
+//include(":mainModule")
+
+// اگر مسیر سفارشی است:
+//project(":mainModule").projectDir = file("../mainModule")
  

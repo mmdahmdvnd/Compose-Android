@@ -98,7 +98,7 @@ fun NewRequestPage(
 
 suspend fun submitRequest(){
     val retrofit = Retrofit.Builder()
-        .baseUrl("https://android-material.ir/test/") // آدرس پایه سرویس وب
+        .baseUrl("https://my-url-address/test/") // آدرس پایه سرویس وب
         .addConverterFactory(GsonConverterFactory.create()) // مبدل داده به و از JSON
         .build()
 
