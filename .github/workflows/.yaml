@@ -17,7 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Setup Java (JDK 8 برای Gradle جدید)
+      # Step 2: Setup Java (JDK8 برای Gradle جدید)
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
