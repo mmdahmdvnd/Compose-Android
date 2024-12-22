@@ -17,12 +17,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Setup Java (JDK 17 برای Gradle جدید)
+      # Step 2: Setup Java (JDK 8 برای Gradle جدید)
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 17
+          java-version: 8
 
       # Step 3: Cache Gradle
       - name: Cache Gradle
@@ -32,7 +32,7 @@ jobs:
           key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: gradle-${{ runner.os }}
 
-      # Step 4: Build the project
+      # Step 4: Build the project (ساخت پروژه)
       - name: Build project
         run: ./gradlew build --stacktrace
 
