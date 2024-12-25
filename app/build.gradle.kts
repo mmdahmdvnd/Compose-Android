@@ -20,7 +20,6 @@ android {
         }
 //        multiDexEnabled = true
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -31,12 +30,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -62,9 +60,7 @@ android {
 //    }
 }
 
-
 dependencies {
-
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.0")
@@ -82,8 +78,8 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation ("com.google.maps.android:maps-compose:4.2.0")
-    // Optionally, you can include the Compose utils library for Clustering,
-    // Street View metadata checks, etc.
+// Optionally, you can include the Compose utils library for Clustering,
+// Street View metadata checks, etc.
     implementation ("com.google.maps.android:maps-compose-utils:4.2.0")
     // Optionally, you can include the widgets library for ScaleBar, etc.
     implementation ("com.google.maps.android:maps-compose-widgets:4.2.0")
@@ -93,11 +89,10 @@ dependencies {
 
 //    implementation ("com.google.accompanist:accompanist-maps:0.19.0")
 
-    // Handling Permission scenario
+// Handling Permission scenario
     implementation("dev.shreyaspatil.permission-flow:permission-flow-compose:1.2.0")
-    // libs for fetching user current location and handling this Task API
+// libs for fetching user current location and handling this Task API
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.0")
-
 
 
     //Test
@@ -113,7 +108,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    //    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.5.1")
+//    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.5.1")
     androidTestImplementation ("androidx.navigation:navigation-testing:2.7.2")
     testImplementation ("org.junit.jupiter:junit-jupiter-api:5.9.2")
     androidTestImplementation ("org.mockito:mockito-core:5.6.0")
