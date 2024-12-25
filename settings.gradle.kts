@@ -1,0 +1,24 @@
+import org.gradle.internal.impldep.org.jsoup.safety.Safelist.basic
+
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "pishcoApp"
+include(":app")
+//include(":mainModule")
+
+// اگر مسیر سفارشی است:
+//project(":mainModule").projectDir = file("../mainModule")
+ 
